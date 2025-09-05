@@ -15,11 +15,11 @@ export class ReportsController {
   }
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(202) // 202 Accepted = still processing
   generate() {
-    this.reportsService.accounts();
-    this.reportsService.yearly();
-    this.reportsService.fs();
-    return { message: 'finished' };
+    // kick off report generation in background
+    void this.reportsService.generateAllReports();
+
+    return { message: 'processing' };
   }
 }

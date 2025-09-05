@@ -187,3 +187,48 @@ npm run db:migrate:test
 ```sh
 npm test
 ```
+
+# Report Generation Optimization
+## Start report generation (POST `/api/v1/reports`)
+Kicks off the report processing in the background.
+
+**Request**
+```http
+POST /api/v1/reports
+```
+**Response**
+```{
+  "message": "processing"
+}
+```
+
+## Check report generation status (GET `/api/v1/reports`)
+**Request**
+```http
+GET /api/v1/reports
+```
+**Response**
+```{
+  "accounts.csv": "starting",
+  "yearly.csv": "starting",
+  "fs.csv": "starting"
+}
+```
+**Response(after finished)**
+```
+before optimization
+{
+    "accounts.csv": "finished in 3.20",
+    "yearly.csv": "finished in 1.45",
+    "fs.csv": "finished in 1.83"
+}
+```
+```
+after optimization
+{
+    "accounts.csv": "finished in 0.99",
+    "yearly.csv": "finished in 0.43",
+    "fs.csv": "finished in 0.31"
+}
+```
+
